@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GE6 Reviewer & Practice Exam</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #0d47a1;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #202124;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 { margin: 0; font-size: 1.8rem; }
+        header p { margin: 5px 0 0 0; opacity: 0.9; }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: #e0e0e0;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Cards & Questions */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .question {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .btn-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: #e8f0fe;
+            border-radius: 4px;
+            border-left: 4px solid var(--success-color);
+        }
+
+        /* Quiz Options */
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .options-list li {
+            margin-bottom: 8px;
+        }
+
+        .options-list label {
+            display: block;
+            padding: 10px 14px;
+            background: #f1f3f4;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .options-list label:hover {
+            background: #e2e6ea;
+        }
+
+        .quiz-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Gemini Notebook */
+        .notebook-card {
+            background: white;
+            border: 2px solid #8ab4f8;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .action-btns {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-success { background: var(--success-color); }
+        .btn-danger { background: var(--danger-color); }
+        .btn-primary { background: var(--primary-color); }
+
+        .score-board {
+            text-align: center;
+            background: #e8f0fe;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>GE6: Readings in Philippine History</h1>
+        <p>Interactive Study Guide & Mock Examination</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('study')">📖 Study Cards</button>
+        <button class="tab-btn" onclick="switchTab('quiz')">📝 Mock Exam</button>
+        <button class="tab-btn" onclick="switchTab('notebook')">✨ Gemini Notebook</button>
+    </div>
+
+    <!-- TAB 1: STUDY CARDS -->
+    <div id="study" class="tab-content active">
+        <h2>Study & Flashcard Review</h2>
+        
+        <h3>1. Political Caricatures of the American Era</h3>
+        <div class="card">
+            <div class="question">Q1: Sino-sino ang mga may-akda ng librong nag-compile ng mga pampolitikang karikatura noong panahon ng Amerikano?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Si Alfred McCoy at Alfredo Roces sa kanilang librong <i>Philippine Cartoons: Political Caricature of the American Era (1900–1941)</i>.</div>
+        </div>
+
+        <div class="card">
+            <div class="question">Q2: Ano ang kinakatawan ni Juan de la Cruz at ano ang kanyang karaniwang kasuotan sa mga karikatura?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Siya ang personipikasyon ng ordinaryong mamamayang Pilipino at ng pampublikong interes. Karaniwan siyang nakasuot ng <b>salakot at barong tagalog</b>.</div>
+        </div>
+
+        <div class="card">
+            <div class="question">Q3: Anong isyu ang tinuligsa sa editorial cartoon noong Hunyo 16, 1917 na iginuhit ni Fernando Amorsolo?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Ang korapsyon sa pulisya (Police Corruption) at ang pagkakaroon ng double standard o magkaibang pagpapatupad ng batas sa Maynila.</div>
+        </div>
+
+        <h3>2. Philippine Constitutions & Political Evolution</h3>
+        <div class="card">
+            <div class="question">Q4: Ano ang itinuturing na kauna-unahang republican constitution sa buong Asya?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Ang <b>1899 Malolos Constitution</b>.</div>
+        </div>
+
+        <div class="card">
+            <div class="question">Q5: Anong Saligang Batas ang nagkaroon ng bisa noong Commonwealth Period at naghanda sa bansa para sa kalayaan?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Ang <b>1935 Constitution</b>.</div>
+        </div>
+
+        <h3>3. Taxation Through History</h3>
+        <div class="card">
+            <div class="question">Q6: Anu-ano ang tatlong pangunahing uri ng pagpapahirap na buwis at obligasyon noong Panahon ng Kastila?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Ang <b>Tributo</b> (tribute), <b>Bandala</b>, at <b>Polo y Servicio</b> (sapilitang paggawa).</div>
+        </div>
+
+        <h3>4. Agrarian Reform & Land Tenure Issues</h3>
+        <div class="card">
+            <div class="question">Q7: Anong batas sa ilalim ni Pangulong Diosdado Macapagal ang nagbuwag sa share tenancy at nagtatag ng owner-cultivatorship?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Ang <b>Agricultural Land Reform Code of 1963 (RA 3844)</b>.</div>
+        </div>
+
+        <h3>5. Local History & Cultural Heritage</h3>
+        <div class="card">
+            <div class="question">Q8: Ano ang pagkakaiba ng Oral History at Biography?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Ang <b>Oral History</b> ay nakabase sa mga hindi nakasulat na alaala o panayam mula sa mga nakasaksi (tulad ng WWII survivors), samantalang ang <b>Biography</b> ay detalyadong kasaysayan ng buhay at nakamit ng isang tiyak na tao (tulad ni Jose Rizal).</div>
+        </div>
+    </div>
+
+    <!-- TAB 2: MOCK EXAM -->
+    <div id="quiz" class="tab-content">
+        <h2>Mock Examination</h2>
+        <div class="score-board" id="scoreBoard">Pumili ng mga sagot at i-click ang "Submit Exam" sa ibaba.</div>
+
+        <form id="quizForm">
+            <!-- Q1 -->
+            <div class="card">
+                <div class="question">1. Sino ang iginuhit na personipikasyon ng ordinaryong Pilipino sa mga political caricature?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q1" value="A"> A) Jose Rizal</label></li>
+                    <li><label><input type="radio" name="q1" value="B"> B) Juan de la Cruz</label></li>
+                    <li><label><input type="radio" name="q1" value="C"> C) Manuel L. Quezon</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q1"></div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="card">
+                <div class="question">2. Anong batas ang ipinasa noong 1955 sa ilalim ni Pangulong Ramon Magsaysay upang bumili ng malalaking lupain para sa mga magsasaka?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q2" value="A"> A) Land Reform Act of 1955 (RA 1400)</label></li>
+                    <li><label><input type="radio" name="q2" value="B"> B) Agricultural Land Reform Code (RA 3844)</label></li>
+                    <li><label><input type="radio" name="q2" value="C"> C) 1987 Constitution</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q2"></div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="card">
+                <div class="question">3. Anong uri ng kasaysayan ang nakatuon sa pagtatag, pamumuno, at ebolusyon ng isang partikular na organisasyon o paaralan?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q3" value="A"> A) Oral History</label></li>
+                    <li><label><input type="radio" name="q3" value="B"> B) Institutional History</label></li>
+                    <li><label><input type="radio" name="q3" value="C"> C) Biography</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q3"></div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="card">
+                <div class="question">4. Sino ang pambansang alagad ng sining na gumuhit ng karikatura noong Hunyo 16, 1917 tungkol sa double standards ng pulisya?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q4" value="A"> A) Alfredo Roces</label></li>
+                    <li><label><input type="radio" name="q4" value="B"> B) Fernando Amorsolo</label></li>
+                    <li><label><input type="radio" name="q4" value="C"> C) Alfred McCoy</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q4"></div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="card">
+                <div class="question">5. Ano ang kasalukuyang umiiral na Saligang Batas (Supreme Law) ng Republika ng Pilipinas?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q5" value="A"> A) 1899 Constitution</label></li>
+                    <li><label><input type="radio" name="q5" value="B"> B) 1935 Constitution</label></li>
+                    <li><label><input type="radio" name="q5" value="C"> C) 1987 Constitution</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q5"></div>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="checkQuiz()" style="width: 100%; padding: 14px; font-size: 1.1rem;">Submit Exam</button>
+        </form>
+    </div>
+
+    <!-- TAB 3: GEMINI NOTEBOOK -->
+    <div id="notebook" class="tab-content">
+        <div class="notebook-card">
+            <h2>✨ Gemini Notebook</h2>
+            <p>Isulat dito ang iyong mga personal na summary, mnemonics, o paalala para sa exam. Kusang mai-save ang mga ito sa iyong browser.</p>
+            <textarea id="userNotes" placeholder="Isulat ang iyong notes dito... (Halimbawa: RA 1400 = Magsaysay, RA 3844 = Macapagal)"></textarea>
+            
+            <div class="action-btns">
+                <button class="btn btn-success" onclick="saveNotes()">💾 Save Notes</button>
+                <button class="btn btn-primary" onclick="exportNotes()">📥 Download Notes (.txt)</button>
+                <button class="btn btn-danger" onclick="clearNotes()">🗑 Clear</button>
+            </div>
+            <p id="noteStatus" style="color: var(--success-color); font-weight: bold; margin-top: 10px;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab Navigation Function
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Toggle Answer Display for Study Cards
+    function toggleAnswer(btn) {
+        const answer = btn.nextElementSibling;
+        if (answer.style.display === "block") {
+            answer.style.display = "none";
+            btn.innerText = "Ipakita ang Sagot";
+        } else {
+            answer.style.display = "block";
+            btn.innerText = "Itago ang Sagot";
+        }
+    }
+
+    // Quiz Correction & Scoring Logic
+    function checkQuiz() {
+        const answers = { q1: "B", q2: "A", q3: "B", q4: "B", q5: "C" };
+        let score = 0;
+        let total = 5;
+
+        for (let q in answers) {
+            const selected = document.querySelector(`input[name="${q}"]:checked`);
+            const feedback = document.getElementById(`fb-${q}`);
+            feedback.style.display = "block";
+
+            if (selected) {
+                if (selected.value === answers[q]) {
+                    score++;
+                    feedback.style.color = "var(--success-color)";
+                    feedback.innerText = "✔ Tama!";
+                } else {
+                    feedback.style.color = "var(--danger-color)";
+                    feedback.innerText = `✖ Mali. Ang tamang sagot ay (${answers[q]}).`;
+                }
+            } else {
+                feedback.style.color = "var(--danger-color)";
+                feedback.innerText = `⚠️ Walang sagot. Ang tamang sagot ay (${answers[q]}).`;
+            }
+        }
+
+        const scoreBoard = document.getElementById('scoreBoard');
+        scoreBoard.innerText = `Ang iyong Iskor: ${score} / ${total} (${(score/total)*100}%)`;
+        if(score === total) {
+            scoreBoard.style.background = "#d4edda";
+            scoreBoard.style.color = "#155724";
+        } else {
+            scoreBoard.style.background = "#fff3cd";
+            scoreBoard.style.color = "#856404";
+        }
+    }
+
+    // Gemini Notebook Functions (LocalStorage & File Export)
+    window.onload = function() {
+        const saved = localStorage.getItem("ge6_notes_data");
+        if (saved) document.getElementById("userNotes").value = saved;
+    };
+
+    function saveNotes() {
+        const text = document.getElementById("userNotes").value;
+        localStorage.setItem("ge6_notes_data", text);
+        showStatus("✔ Matagumpay na na-save ang iyong notes!");
+    }
+
+    function clearNotes() {
+        if (confirm("Sigurado ka bang gusto mong burahin ang iyong mga naisulat?")) {
+            document.getElementById("userNotes").value = "";
+            localStorage.removeItem("ge6_notes_data");
+            showStatus("🗑 Nabura na ang mga notes.");
+        }
+    }
+
+    function exportNotes() {
+        const text = document.getElementById("userNotes").value;
+        if (!text) {
+            alert("Walang laman ang iyong notes upang mai-download.");
+            return;
+        }
+        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "GE6_Study_Notes.txt";
+        a.click();
+    }
+
+    function showStatus(msg) {
+        const status = document.getElementById("noteStatus");
+        status.innerText = msg;
+        setTimeout(() => status.innerText = "", 3000);
+    }
+</script>
+
+</body>
+</html>
