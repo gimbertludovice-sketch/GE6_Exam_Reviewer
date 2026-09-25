@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GE6 Reviewer & Practice Exam</title>
+    <title>GE6 Reviewer - Gimbert Ludovice</title>
     <style>
         :root {
             --primary-color: #1a73e8;
@@ -13,6 +13,7 @@
             --text-color: #202124;
             --success-color: #28a745;
             --danger-color: #dc3545;
+            --accent-bg: #e8f0fe;
         }
 
         body {
@@ -25,7 +26,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1050px;
             margin: 0 auto;
         }
 
@@ -40,7 +41,16 @@
         }
 
         header h1 { margin: 0; font-size: 1.8rem; }
-        header p { margin: 5px 0 0 0; opacity: 0.9; }
+        header p { margin: 5px 0 0 0; opacity: 0.95; }
+        .author-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
 
         /* Navigation Tabs */
         .nav-tabs {
@@ -99,9 +109,19 @@
             display: none;
             margin-top: 12px;
             padding: 12px;
-            background: #e8f0fe;
+            background: var(--accent-bg);
             border-radius: 4px;
             border-left: 4px solid var(--success-color);
+        }
+
+        .demo-box {
+            margin-top: 8px;
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border-left: 3px solid #ffeeba;
         }
 
         /* Quiz Options */
@@ -134,7 +154,19 @@
             display: none;
         }
 
-        /* Gemini Notebook */
+        /* Layout with Sidebar for Gemini Notebook */
+        .notebook-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .notebook-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .notebook-card {
             background: white;
             border: 2px solid #8ab4f8;
@@ -144,19 +176,21 @@
 
         textarea {
             width: 100%;
-            height: 180px;
+            height: 250px;
             padding: 12px;
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 1rem;
             resize: vertical;
+            font-family: inherit;
         }
 
         .action-btns {
             margin-top: 10px;
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -172,14 +206,72 @@
         .btn-danger { background: var(--danger-color); }
         .btn-primary { background: var(--primary-color); }
 
+        /* Sidebar Suggestions Style */
+        .sidebar-suggestions {
+            background: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-suggestions h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--accent-bg);
+            padding-bottom: 8px;
+        }
+
+        .suggestion-item {
+            background: #f8f9fa;
+            border-left: 3px solid var(--primary-color);
+            padding: 10px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .suggestion-item strong {
+            display: block;
+            color: #1a73e8;
+            margin-bottom: 4px;
+        }
+
+        .btn-add-note {
+            background: #e8f0fe;
+            color: #1a73e8;
+            border: 1px solid #1a73e8;
+            padding: 3px 8px;
+            font-size: 0.75rem;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 6px;
+            font-weight: bold;
+        }
+
+        .btn-add-note:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
         .score-board {
             text-align: center;
-            background: #e8f0fe;
+            background: var(--accent-bg);
             padding: 15px;
             border-radius: 8px;
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            font-weight: bold;
+            color: #5f6368;
+            border-top: 1px solid #dadce0;
         }
     </style>
 </head>
@@ -189,6 +281,7 @@
     <header>
         <h1>GE6: Readings in Philippine History</h1>
         <p>Interactive Study Guide & Mock Examination</p>
+        <div class="author-badge">Programmer: Gimbert Ludovice | WITMWD3M1</div>
     </header>
 
     <!-- Navigation Tabs -->
@@ -200,65 +293,95 @@
 
     <!-- TAB 1: STUDY CARDS -->
     <div id="study" class="tab-content active">
-        <h2>Study & Flashcard Review</h2>
+        <h2>Study Cards with Demonstration & Analysis</h2>
         
-        <h3>1. Political Caricatures of the American Era</h3>
+        <h3>1. Political Caricatures of the American Era (1900–1941)</h3>
         <div class="card">
-            <div class="question">Q1: Sino-sino ang mga may-akda ng librong nag-compile ng mga pampolitikang karikatura noong panahon ng Amerikano?</div>
+            <div class="question">Q1: Sino-sino ang nag-compile ng mga editorial cartoons sa librong "Philippine Cartoons"?</div>
             <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
-            <div class="answer"><b>Sagot:</b> Si Alfred McCoy at Alfredo Roces sa kanilang librong <i>Philippine Cartoons: Political Caricature of the American Era (1900–1941)</i>.</div>
+            <div class="answer">
+                <b>Sagot:</b> Alfred McCoy at Alfredo Roces.
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Sila ang dalawang bilanggong mananaliksik na nagsama ng mga pampolitikang karikatura mula 1900 hanggang 1941 upang ipakita ang kalagayan ng Pilipinas noong panahon ng Amerikano.</div>
+            </div>
         </div>
 
         <div class="card">
-            <div class="question">Q2: Ano ang kinakatawan ni Juan de la Cruz at ano ang kanyang karaniwang kasuotan sa mga karikatura?</div>
+            <div class="question">Q2: Sino ang personipikasyon ng ordinaryong mamamayang Pilipino sa mga caricatures?</div>
             <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
-            <div class="answer"><b>Sagot:</b> Siya ang personipikasyon ng ordinaryong mamamayang Pilipino at ng pampublikong interes. Karaniwan siyang nakasuot ng <b>salakot at barong tagalog</b>.</div>
+            <div class="answer">
+                <b>Sagot:</b> Si Juan de la Cruz (nakasuot ng salakot at barong tagalog).[cite: 1]
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Si Juan de la Cruz ang kumakatawan sa boses ng pampublikong interes na humaharap sa mga tiwaling opisyal at dayuhan.[cite: 1]</div>
+            </div>
         </div>
 
         <div class="card">
-            <div class="question">Q3: Anong isyu ang tinuligsa sa editorial cartoon noong Hunyo 16, 1917 na iginuhit ni Fernando Amorsolo?</div>
+            <div class="question">Q3: Anong isyu ang ipinapakita sa ginuhit ni Fernando Amorsolo noong Hunyo 16, 1917?</div>
             <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
-            <div class="answer"><b>Sagot:</b> Ang korapsyon sa pulisya (Police Corruption) at ang pagkakaroon ng double standard o magkaibang pagpapatupad ng batas sa Maynila.</div>
+            <div class="answer">
+                <b>Sagot:</b> Police Corruption at selective law enforcement sa Maynila.[cite: 1]
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Ipinakita rito ang magkaibang pagtrato o double standard ng pulisya sa pagpapatupad ng batas.[cite: 1]</div>
+            </div>
         </div>
 
         <h3>2. Philippine Constitutions & Political Evolution</h3>
         <div class="card">
             <div class="question">Q4: Ano ang itinuturing na kauna-unahang republican constitution sa buong Asya?</div>
             <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
-            <div class="answer"><b>Sagot:</b> Ang <b>1899 Malolos Constitution</b>.</div>
+            <div class="answer">
+                <b>Sagot:</b> 1899 Malolos Constitution.[cite: 1]
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Itinatag ito matapos ang Rebolusyong Pilipino laban sa Espanya at ito ang kauna-unahang republikanong saligang batas sa buong kontinente ng Asya.[cite: 1]</div>
+            </div>
         </div>
 
         <div class="card">
-            <div class="question">Q5: Anong Saligang Batas ang nagkaroon ng bisa noong Commonwealth Period at naghanda sa bansa para sa kalayaan?</div>
+            <div class="question">Q5: Anong Saligang Batas ang ginamit noong Commonwealth Period?</div>
             <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
-            <div class="answer"><b>Sagot:</b> Ang <b>1935 Constitution</b>.</div>
+            <div class="answer">
+                <b>Sagot:</b> 1935 Constitution.[cite: 1]
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Ang konstitusyong ito ang naghanda sa Pilipinas para sa ganap na kalayaan mula sa pamamahala ng Estados Unidos.[cite: 1]</div>
+            </div>
         </div>
 
         <h3>3. Taxation Through History</h3>
         <div class="card">
-            <div class="question">Q6: Anu-ano ang tatlong pangunahing uri ng pagpapahirap na buwis at obligasyon noong Panahon ng Kastila?</div>
+            <div class="question">Q6: Anu-ano ang mga uri ng buwis noong Panahon ng Kastila?</div>
             <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
-            <div class="answer"><b>Sagot:</b> Ang <b>Tributo</b> (tribute), <b>Bandala</b>, at <b>Polo y Servicio</b> (sapilitang paggawa).</div>
+            <div class="answer">
+                <b>Sagot:</b> Tributo, Bandala, at Polo y Servicio.[cite: 1]
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Ang mga ito ay piyudal at pampahirap na sistemang pampinansyal para mag-akbay ng yaman mula sa mga katutubo patungo sa pamahalaang Espanyol.[cite: 1]</div>
+            </div>
         </div>
 
         <h3>4. Agrarian Reform & Land Tenure Issues</h3>
         <div class="card">
-            <div class="question">Q7: Anong batas sa ilalim ni Pangulong Diosdado Macapagal ang nagbuwag sa share tenancy at nagtatag ng owner-cultivatorship?</div>
+            <div class="question">Q7: Anong batas sa ilalim ni Ramon Magsaysay ang bumili ng malalaking lupa para sa mga magsasaka?</div>
             <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
-            <div class="answer"><b>Sagot:</b> Ang <b>Agricultural Land Reform Code of 1963 (RA 3844)</b>.</div>
+            <div class="answer"><b>Sagot:</b> Land Reform Act of 1955 (RA 1400).[cite: 1]
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Nilayon ng RA 1400 na bawasan ang tenancy conflict sa pamamagitan ng pagbili ng mga hacienda upang maipamahagi sa mga tenant farmers.[cite: 1]</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="question">Q8: Anong batas sa ilalim ni Diosdado Macapagal ang nag-alis sa share tenancy?</div>
+            <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
+            <div class="answer"><b>Sagot:</b> Agricultural Land Reform Code of 1963 (RA 3844).[cite: 1]
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Binuwag ng RA 3844 ang lumang sistema ng kasama (share tenancy) upang ilatag ang owner-cultivatorship sa mga magsasaka.[cite: 1]</div>
+            </div>
         </div>
 
         <h3>5. Local History & Cultural Heritage</h3>
         <div class="card">
-            <div class="question">Q8: Ano ang pagkakaiba ng Oral History at Biography?</div>
+            <div class="question">Q9: Ano ang Oral History at magbigay ng halimbawa nito?</div>
             <button class="btn-toggle" onclick="toggleAnswer(this)">Ipakita ang Sagot</button>
-            <div class="answer"><b>Sagot:</b> Ang <b>Oral History</b> ay nakabase sa mga hindi nakasulat na alaala o panayam mula sa mga nakasaksi (tulad ng WWII survivors), samantalang ang <b>Biography</b> ay detalyadong kasaysayan ng buhay at nakamit ng isang tiyak na tao (tulad ni Jose Rizal).</div>
+            <div class="answer"><b>Sagot:</b> Hindi nakasulat na alaala o panayam mula sa mga nakasaksi (Halimbawa: Panayam sa WWII survivors).[cite: 1]
+                <div class="demo-box">💡 <b>Demonstration / Rason:</b> Nakadepende ito sa pasalitang kwento ng mga taong mismong nakaranas ng makasaysayang kaganapan.[cite: 1]</div>
+            </div>
         </div>
     </div>
 
     <!-- TAB 2: MOCK EXAM -->
     <div id="quiz" class="tab-content">
-        <h2>Mock Examination</h2>
+        <h2>Mock Examination (10 Questions with Demonstration)</h2>
         <div class="score-board" id="scoreBoard">Pumili ng mga sagot at i-click ang "Submit Exam" sa ibaba.</div>
 
         <form id="quizForm">
@@ -317,25 +440,134 @@
                 <div class="quiz-feedback" id="fb-q5"></div>
             </div>
 
-            <button type="button" class="btn btn-primary" onclick="checkQuiz()" style="width: 100%; padding: 14px; font-size: 1.1rem;">Submit Exam</button>
+            <!-- Q6 -->
+            <div class="card">
+                <div class="question">6. Anong Saligang Batas ang itinuturing na kauna-unahang republican constitution sa buong Asya?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q6" value="A"> A) 1899 Malolos Constitution</label></li>
+                    <li><label><input type="radio" name="q6" value="B"> B) 1935 Constitution</label></li>
+                    <li><label><input type="radio" name="q6" value="C"> C) 1973 Constitution</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q6"></div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="card">
+                <div class="question">7. Anong uri ng buwis noong panahon ng Espanyol ang tumutukoy sa sapilitang pagbenta ng ani sa pamahalaan?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q7" value="A"> A) Tributo</label></li>
+                    <li><label><input type="radio" name="q7" value="B"> B) Bandala</label></li>
+                    <li><label><input type="radio" name="q7" value="C"> C) Polo y Servicio</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q7"></div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="card">
+                <div class="question">8. Anong batas noong 1963 sa ilalim ni Pangulong Diosdado Macapagal ang nag-alis sa sistema ng share tenancy?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q8" value="A"> A) RA 1400</label></li>
+                    <li><label><input type="radio" name="q8" value="B"> B) RA 3844</label></li>
+                    <li><label><input type="radio" name="q8" value="C"> C) RA 6657</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q8"></div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="card">
+                <div class="question">9. Ano ang tinutukoy na detalyadong kasaysayan ng buhay, pakikipaglaban, at tagumpay ng isang indibidwal (tulad ni Rizal)?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q9" value="A"> A) Institutional History</label></li>
+                    <li><label><input type="radio" name="q9" value="B"> B) Biography</label></li>
+                    <li><label><input type="radio" name="q9" value="C"> C) Oral History</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q9"></div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="card">
+                <div class="question">10. Anong karikatura noong Mayo 20, 1916 ang nagpakita kay Dr. Santos na sinusubukang ipasa ang kanyang pwesto sa bayaw niyang si Dr. Barcelona?</div>
+                <ul class="options-list">
+                    <li><label><input type="radio" name="q10" value="A"> A) Dynasties & Nepotism</label></li>
+                    <li><label><input type="radio" name="q10" value="B"> B) Police Corruption</label></li>
+                    <li><label><input type="radio" name="q10" value="C"> C) Cultural Americanization</label></li>
+                </ul>
+                <div class="quiz-feedback" id="fb-q10"></div>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="checkQuiz()" style="width: 100%; padding: 14px; font-size: 1.1rem; margin-top: 15px;">Submit Exam & View Demonstration</button>
         </form>
     </div>
 
-    <!-- TAB 3: GEMINI NOTEBOOK -->
+    <!-- TAB 3: GEMINI NOTEBOOK WITH SIDEBAR SUGGESTIONS -->
     <div id="notebook" class="tab-content">
-        <div class="notebook-card">
-            <h2>✨ Gemini Notebook</h2>
-            <p>Isulat dito ang iyong mga personal na summary, mnemonics, o paalala para sa exam. Kusang mai-save ang mga ito sa iyong browser.</p>
-            <textarea id="userNotes" placeholder="Isulat ang iyong notes dito... (Halimbawa: RA 1400 = Magsaysay, RA 3844 = Macapagal)"></textarea>
+        <div class="notebook-layout">
             
-            <div class="action-btns">
-                <button class="btn btn-success" onclick="saveNotes()">💾 Save Notes</button>
-                <button class="btn btn-primary" onclick="exportNotes()">📥 Download Notes (.txt)</button>
-                <button class="btn btn-danger" onclick="clearNotes()">🗑 Clear</button>
+            <!-- MAIN NOTEBOOK AREA -->
+            <div class="notebook-card">
+                <h2>✨ Gemini Notebook</h2>
+                <p>Isulat dito ang iyong mga personal na summary, mnemonics, o paalala para sa exam. Kusang mai-save ang mga ito sa iyong browser.</p>
+                <textarea id="userNotes" placeholder="Isulat ang iyong notes dito... (Halimbawa: RA 1400 = Magsaysay, RA 3844 = Macapagal)"></textarea>
+                
+                <div class="action-btns">
+                    <button class="btn btn-success" onclick="saveNotes()">💾 Save Notes</button>
+                    <button class="btn btn-primary" onclick="exportNotes()">📥 Download Notes (.txt)</button>
+                    <button class="btn btn-danger" onclick="clearNotes()">🗑 Clear</button>
+                </div>
+                <p id="noteStatus" style="color: var(--success-color); font-weight: bold; margin-top: 10px;"></p>
             </div>
-            <p id="noteStatus" style="color: var(--success-color); font-weight: bold; margin-top: 10px;"></p>
+
+            <!-- SIDEBAR SUGGESTIONS PANEL -->
+            <div class="sidebar-suggestions">
+                <h3>💡 Topic Key Suggestions</h3>
+                
+                <div class="suggestion-item">
+                    <strong>1. Political Caricatures</strong>
+                    • McCoy & Roces (Authors)[cite: 1]<br>
+                    • Juan de la Cruz = Salakot & Barong[cite: 1]<br>
+                    • Amorsolo = Police Corruption (1917)[cite: 1]<br>
+                    • Dr. Santos & Barcelona = Nepotism[cite: 1]
+                    <button class="btn-add-note" onclick="addNoteText('• Political Caricatures: McCoy & Roces; Juan de la Cruz (Salakot & Barong); Amorsolo (Police Corruption); Santos/Barcelona (Nepotism)')">+ Insert Note</button>
+                </div>
+
+                <div class="suggestion-item">
+                    <strong>2. Constitutions Timeline</strong>
+                    • 1899 = Malolos (1st in Asia)[cite: 1]<br>
+                    • 1935 = Commonwealth Period[cite: 1]<br>
+                    • 1987 = Current Supreme Law[cite: 1]
+                    <button class="btn-add-note" onclick="addNoteText('• Constitutions: 1899 (Malolos), 1935 (Commonwealth), 1987 (Current Supreme Law)')">+ Insert Note</button>
+                </div>
+
+                <div class="suggestion-item">
+                    <strong>3. Colonial Taxation</strong>
+                    • Spanish: Feudal (Tributo, Bandala, Polo y Servicio)[cite: 1]<br>
+                    • American: Modernized (Income Tax, Land titling)[cite: 1]
+                    <button class="btn-add-note" onclick="addNoteText('• Taxation: Spanish = Feudal (Tributo/Bandala/Polo); American = Modernized (Income Tax)')">+ Insert Note</button>
+                </div>
+
+                <div class="suggestion-item">
+                    <strong>4. Agrarian Reform Laws</strong>
+                    • RA 1400 (1955) = Magsaysay[cite: 1]<br>
+                    • RA 3844 (1963) = Macapagal (Abolished share tenancy)[cite: 1]
+                    <button class="btn-add-note" onclick="addNoteText('• Agrarian Reform: RA 1400 (1955 Magsaysay); RA 3844 (1963 Macapagal - Abolished Share Tenancy)')">+ Insert Note</button>
+                </div>
+
+                <div class="suggestion-item">
+                    <strong>5. Local History Types</strong>
+                    • Oral = Spoken accounts/interview[cite: 1]<br>
+                    • Institutional = Schools/Org history[cite: 1]<br>
+                    • Biography = Individual life history[cite: 1]
+                    <button class="btn-add-note" onclick="addNoteText('• Local History: Oral (Interviews/WWII), Institutional (School/Org), Biography (Individual)')">+ Insert Note</button>
+                </div>
+
+            </div>
+
         </div>
     </div>
+
+    <footer>
+        GE6 Reviewer Programmed by Gimbert Ludovice | WITMWD3M1
+    </footer>
 </div>
 
 <script>
@@ -360,11 +592,36 @@
         }
     }
 
-    // Quiz Correction & Scoring Logic
+    // Quiz Correction & Demonstration / Explanation Logic
     function checkQuiz() {
-        const answers = { q1: "B", q2: "A", q3: "B", q4: "B", q5: "C" };
+        const answers = { 
+            q1: "B", 
+            q2: "A", 
+            q3: "B", 
+            q4: "B", 
+            q5: "C",
+            q6: "A",
+            q7: "B",
+            q8: "B",
+            q9: "B",
+            q10: "A"
+        };
+
+        const explanations = {
+            q1: "Si Juan de la Cruz ang kinikilalang simbolo ng mamamayang Pilipino sa mga caricatures habang nakasuot ng salakot at barong tagalog.",
+            q2: "Ang RA 1400 (Land Reform Act of 1955) ay ipinasa sa ilalim ni Pangulong Magsaysay upang bumili ng malalaking lupain.",
+            q3: "Institutional History ang tumutukoy sa pag-aaral ng ebolusyon at pamumuno ng mga institusyon o paaralan tulad ng Trimex Colleges.",
+            q4: "Si Fernando Amorsolo ang gumuhit ng karikatura sa 'The Independent' noong 1917 na naglantad sa korapsyon ng pulisya.",
+            q5: "Ang 1987 Constitution ang kasalukuyang supreme law ng Pilipinas matapos ang EDSA People Power Revolution.",
+            q6: "Ang 1899 Malolos Constitution ang kauna-unahang republikanong konstitusyon sa buong kontinente ng Asya.",
+            q7: "Ang Bandala ay ang sapilitang pagbebenta ng mga produktong agrikultural sa pamahalaang Espanyol.",
+            q8: "Ang RA 3844 (Agricultural Land Reform Code) sa ilalim ni Macapagal ang nagbuwag sa share tenancy.",
+            q9: "Biography ang tawag sa detalyadong pagsulat ng buhay at pamana ng isang tao.",
+            q10: "Ang paksang Dynasties & Nepotism noong May 20, 1916 ay nagpakita ng pagpigil sa pagpasa ng political power sa kamag-anak."
+        };
+
         let score = 0;
-        let total = 5;
+        let total = 10;
 
         for (let q in answers) {
             const selected = document.querySelector(`input[name="${q}"]:checked`);
@@ -375,14 +632,14 @@
                 if (selected.value === answers[q]) {
                     score++;
                     feedback.style.color = "var(--success-color)";
-                    feedback.innerText = "✔ Tama!";
+                    feedback.innerHTML = `✔ <b>Tama!</b><br><small style="color:#333;">💡 <b>Demonstration/Rason:</b> ${explanations[q]}</small>`;
                 } else {
                     feedback.style.color = "var(--danger-color)";
-                    feedback.innerText = `✖ Mali. Ang tamang sagot ay (${answers[q]}).`;
+                    feedback.innerHTML = `✖ <b>Mali. Ang tamang sagot ay (${answers[q]}).</b><br><small style="color:#333;">💡 <b>Demonstration/Rason:</b> ${explanations[q]}</small>`;
                 }
             } else {
                 feedback.style.color = "var(--danger-color)";
-                feedback.innerText = `⚠️ Walang sagot. Ang tamang sagot ay (${answers[q]}).`;
+                feedback.innerHTML = `⚠️ <b>Walang sagot. Ang tamang sagot ay (${answers[q]}).</b><br><small style="color:#333;">💡 <b>Demonstration/Rason:</b> ${explanations[q]}</small>`;
             }
         }
 
@@ -397,22 +654,22 @@
         }
     }
 
-    // Gemini Notebook Functions (LocalStorage & File Export)
+    // Gemini Notebook Functions
     window.onload = function() {
-        const saved = localStorage.getItem("ge6_notes_data");
+        const saved = localStorage.getItem("ge6_notes_ludovice");
         if (saved) document.getElementById("userNotes").value = saved;
     };
 
     function saveNotes() {
         const text = document.getElementById("userNotes").value;
-        localStorage.setItem("ge6_notes_data", text);
+        localStorage.setItem("ge6_notes_ludovice", text);
         showStatus("✔ Matagumpay na na-save ang iyong notes!");
     }
 
     function clearNotes() {
         if (confirm("Sigurado ka bang gusto mong burahin ang iyong mga naisulat?")) {
             document.getElementById("userNotes").value = "";
-            localStorage.removeItem("ge6_notes_data");
+            localStorage.removeItem("ge6_notes_ludovice");
             showStatus("🗑 Nabura na ang mga notes.");
         }
     }
@@ -426,8 +683,18 @@
         const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "GE6_Study_Notes.txt";
+        a.download = "GE6_Study_Notes_Ludovice.txt";
         a.click();
+    }
+
+    function addNoteText(textToAdd) {
+        const textarea = document.getElementById("userNotes");
+        if (textarea.value.trim() !== "") {
+            textarea.value += "\n" + textToAdd;
+        } else {
+            textarea.value = textToAdd;
+        }
+        saveNotes();
     }
 
     function showStatus(msg) {
